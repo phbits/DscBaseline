@@ -359,4 +359,51 @@ function Get-PolicyOptionData
 
 } # end function Get-PolicyOptionData
 
+function ConvertTo-Sid
+{
+    <#
+    .SYNOPSIS
+        Converts an identity to a SID to verify it's a valid account
+
+    .PARAMETER Identity
+        Specifies the identity to convert
+
+    .NOTES
+        SecurityPolicyDsc/source/Modules/SecurityPolicyResourceHelper/SecurityPolicyResourceHelper.psm1
+    #>
+    [OutputType([System.Security.Principal.SecurityIdentifier])]
+    [CmdletBinding()]
+    param
+    (
+        [Parameter()]
+        [System.String]
+        $Identity,
+
+        [Parameter()]
+        [System.String]
+        $Scope = 'Get'
+    )
+
+    $id = [System.Security.Principal.NTAccount]$Identity
+    try
+    {
+        $result = $id.Translate([System.Security.Principal.SecurityIdentifier])
+    }
+    catch
+    {
+        if ($Scope -eq 'Get')
+        {
+            Write-Verbose -Message ($script:localizedData.ErrorIdToSid -f $Identity)
+            $result = $id
+        }
+        else
+        {
+            throw "$($script:localizedData.ErrorIdToSid -f $Identity)"
+        }
+    }
+
+    return $result
+    
+} # end function ConvertTo-Sid
+
 Export-ModuleMember -Function "*"
