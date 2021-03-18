@@ -48,3 +48,9 @@ DscBaseline produces configurations for the following.
 | DscBaselineNetwork.ps1 | Configuration overlap exists between NetAdapterLso and NetAdapterAdvancedProperty. Fix via [PR 481](https://github.com/dsccommunity/NetworkingDsc/pull/481). DscBaseline omits overlapped configuration from NetAdapterLso. |
 | DscBaselineGroupPolicy.ps1 | This functionality is purely experimental and not inclusive of all possible GPO settings. It was abandoned after hearing of Microsoft making significant progress in this area. That said, the Group Policy logic remains in this module and can be invoked using the `-TryGroupPolicy` switch. It attempts to extract registry configurations produced by `gpresult.exe /scope computer /Z` and will create a registry DSC configuration based on PsDscResources. Note that an elevated command prompt should be used and it works best on non-domain-joined systems. |
 
+
+## Getting Started ##
+
+A tutorial is available at the following URL:
+
+https://phbits.medium.com/creating-dsc-configurations-with-dscbaseline-ae4ec34567b1
